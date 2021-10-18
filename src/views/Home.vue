@@ -3,27 +3,34 @@
     <ion-header :translucent="true">
       <ion-toolbar>
         <ion-title>Blank</ion-title>
+          <ion-buttons slot="end">
+            <ion-button>
+              <ion-icon slot="icon-only" :icon="add"></ion-icon>
+            </ion-button>
+          </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    
+
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">Blank</ion-title>
         </ion-toolbar>
       </ion-header>
-    
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
+
+      <ion-item v-for="item in items" :key="item.id" :routerLink="'/detail/' + item.id">
+          {{item.name}}
+          <p slot="end">{{item.id}}</p>
+      </ion-item>
+
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import { defineComponent } from 'vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem, IonButtons, IonButton, IonIcon } from '@ionic/vue';
+import { add } from 'ionicons/icons';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'Home',
@@ -32,37 +39,17 @@ export default defineComponent({
     IonHeader,
     IonPage,
     IonTitle,
-    IonToolbar
+    IonToolbar,
+    IonItem,
+    IonButtons, IonButton, IonIcon
+  },
+  setup(){
+    const items = ref([{name: 'foo', id: 1}])
+
+
+    return { items, add }
   }
 });
 </script>
 
-<style scoped>
-#container {
-  text-align: center;
-  
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-}
-</style>
+<style scoped></style>
